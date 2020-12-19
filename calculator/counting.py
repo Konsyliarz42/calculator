@@ -1,5 +1,6 @@
 import re, logging
-from . import log
+
+log = logging.getLogger('log')
 
 def get_parentheses(string_input: str):
     """Return first parentheses or empty string."""
@@ -32,11 +33,6 @@ def convert_to_list(string_input: str):
         except ValueError:
             pass
 
-    # Add multiplication's marks before roots
-    for i in range(len(founded)):
-        if str(founded[i]) in '√∛∜' and type(founded[i - 1]) == float:
-            founded.insert(i, '*')
-
     log.debug(f"The function generate list of elements: {founded}")
     return founded
 
@@ -67,7 +63,7 @@ def get_first_calculation(list_input: list):
     return None
 
 
-def calculation(tuple_input: tuple):
+def calculation(tuple_input: tuple, round_to=None):
     """Return result of the calculation."""
 
     if len(tuple_input) == 2:
@@ -98,5 +94,9 @@ def calculation(tuple_input: tuple):
         result = number_first + number_second
     elif mark == '-':
         result = number_first - number_second
+
+    # Round
+    if round_to != None:
+        result = round(result, round_to)
 
     return result

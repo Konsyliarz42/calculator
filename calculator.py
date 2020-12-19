@@ -1,27 +1,27 @@
 import PySimpleGUI as sg
 import json
-from calculator.__main__ import main, make_correct
+from calculator import simple_call
 
 DEFAULT_LANGUAGE = 'ENGLISH'
 AUTHORS = ', '.join(["Tomasz Kordiak"])
 VERSION = '1.0'
 
 SIZE_WINDOW = (16*32, 16*15)
-SIZE_BUTTONS = (8, 1) # Auto: None
+SIZE_BUTTONS = (16, 1) # Auto: None
 SIZE_BUTTONS_NUMBERS = (3, 1)
 
-ROUND_LIST = ['None'] + [x for x in range(9)]
+ROUND_LIST = [None] + [x for x in range(9)]
 
 # Create window
 layout = [
     # Main row
     [
         sg.Text("Calculations:", size=(42, 1)),
-        sg.Text("Round to:")
+        sg.Text("Round to:"),
+        sg.Spin(ROUND_LIST, key='round_to', size=(8, 1))
     ],
     [
         sg.InputText(key='string_input', size=(48, 1)),
-        sg.Spin(ROUND_LIST, size=(len(ROUND_LIST[0]) + 1, 1)),
         sg.Button('Calculate', size=SIZE_BUTTONS)
     ],
 
@@ -33,7 +33,7 @@ layout = [
             [sg.Button(x, size=SIZE_BUTTONS_NUMBERS, key=f'_{x}') for x in range(4, 7)],
             [sg.Button(x, size=SIZE_BUTTONS_NUMBERS, key=f'_{x}') for x in range(1, 4)],
             [
-                sg.Button('.', size=SIZE_BUTTONS_NUMBERS, key='.'),
+                sg.Button('.', size=SIZE_BUTTONS_NUMBERS, key='_.'),
                 sg.Button('0', size=SIZE_BUTTONS_NUMBERS, key='_0'),
                 sg.Button('+/-', size=SIZE_BUTTONS_NUMBERS, key='+/-')
             ]
@@ -56,7 +56,7 @@ layout = [
     ],
 ]
 
-window = sg.Window('TITLE', layout, return_keyboard_events=True, size=SIZE_WINDOW)
+window = sg.Window('Calculator', layout, return_keyboard_events=True, size=SIZE_WINDOW)
 
 # Run
 while True:
@@ -77,8 +77,10 @@ while True:
     # Calculate if click button or press enter
     if event == 'Calculate' or event == '\r':
         try:
-            string_input = make_correct(values['string_input'])
-            result, string_output = main(string_input)
+            result, string_output = simple_call(
+                string_input = values['string_input'],
+                round_to = values['round_to']
+            )
             window['string_output'].update(string_output)
         except (TypeError, IndexError, ZeroDivisionError):
             window['string_output'].update('False')
