@@ -20,9 +20,10 @@ class TestCalculator(unittest.TestCase):
     def test_calculations(self):
         self.assertEqual(simple_cal("0 + 1"), 1) # Addition
         self.assertEqual(simple_cal("2 - 3"), -1) # Subtraction
-        self.assertEqual(simple_cal("4*5"), 20) # Multiplication
-        self.assertEqual(simple_cal("6/7"), 0.86) # Division
-        self.assertEqual(simple_cal("8^9"), 134217728) # Raising to a power
+        self.assertEqual(simple_cal("4--5"), 9) # Subtraction negative number
+        self.assertEqual(simple_cal("6*7"), 42) # Multiplication
+        self.assertEqual(simple_cal("8/9"), 0.89) # Division
+        self.assertEqual(simple_cal("10^11"), 100000000000) # Raising to a power
 
 
     def test_calculations_roots(self):

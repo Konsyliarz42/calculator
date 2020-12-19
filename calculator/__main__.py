@@ -8,7 +8,7 @@ def make_correct(string_input: str):
     - Remove equal's mark on end.
     - Add multiplication's marks before parentheses."""
 
-    marks = '(^√∛∜*/+ '
+    marks = '(^√∛∜*/+- '
     positions = list()
     change = False
 
@@ -82,7 +82,7 @@ def main(string_input: str):
 
 #================================================================
 if __name__ == "__main__":
-    string_input = " 2+2= "#input(">: ")
+    string_input = "-6 + -7.8"
     string_input = make_correct(string_input)
 
     #print(get_parentheses(string_input))
