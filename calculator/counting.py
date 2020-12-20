@@ -2,6 +2,8 @@ import re, logging
 
 log = logging.getLogger('log')
 
+remove_comma = lambda arg: arg if arg%1 else int(arg)   #float(2.0) => int(2), float(2.5) => float(2.5)
+
 def get_parentheses(string_input: str):
     """Return first parentheses or empty string."""
 
@@ -29,7 +31,8 @@ def convert_to_list(string_input: str):
     # Change numbers from string to float type
     for i in range(len(founded)):
         try:
-           founded[i] = float(founded[i])
+            founded[i] = float(founded[i])
+            founded[i] = remove_comma(founded[i])
         except ValueError:
             pass
 
@@ -99,4 +102,4 @@ def calculation(tuple_input: tuple, round_to=None):
     if round_to != None:
         result = round(result, round_to)
 
-    return result
+    return remove_comma(result)

@@ -7,6 +7,7 @@ def make_correct(string_input: str):
     """Make corrects to string_input and return new version.\n
     Corrects:
     - Remove spaces on first and last positions.
+    - Change commas on dots.
     - Remove equal's mark on end.
     - Add multiplication's marks before parentheses and roots."""
 
@@ -19,6 +20,12 @@ def make_correct(string_input: str):
         change = True
         string_input = string_input.strip()
         log.debug("Remove spaces on first and last positions")
+
+    # Change commas on dots
+    if ',' in string_input:
+        change = True
+        string_input = string_input.replace(',', '.')
+        log.debug("Change commas on dots")
 
     # Remove equal's mark
     if string_input[-1] == '=':
