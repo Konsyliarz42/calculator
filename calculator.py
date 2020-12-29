@@ -15,7 +15,7 @@ ROUND_LIST = [None] + [x for x in range(9)]
 
 # Create window
 layout = [
-    # Main row
+    # Main rowpy 
     [
         sg.Text("Calculations:", size=(48, 1), justification='left'),
         sg.Text("Round to:"),
@@ -97,7 +97,7 @@ while True:
                 if len(list_input) > 1:
                     number_position = values['string_input'].rfind(str(list_input[-2]))
 
-                    if number_position > 0:
+                    if values['string_input'][number_position + 1] == ' ':
                         number_position += 1
 
                 x = values['string_input'][:number_position + 1] + str(last_number)
