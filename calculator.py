@@ -97,6 +97,9 @@ while True:
                 if len(list_input) > 1:
                     number_position = values['string_input'].rfind(str(list_input[-2]))
 
+                    if number_position > 0:
+                        number_position += 1
+
                 x = values['string_input'][:number_position + 1] + str(last_number)
                 window['string_input'].update(x)
 
